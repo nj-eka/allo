@@ -67,7 +67,6 @@ template <typename Tp> struct const_iterator {
 
   reference operator*() const {
     TRACE(__PRETTY_FUNCTION__);
-    DEBUG("return ")
     return prev_->next_->value_; 
   }
   pointer operator->() const {
