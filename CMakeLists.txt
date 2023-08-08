@@ -71,7 +71,7 @@ set(Boost_USE_STATIC_LIBS ON)
 # include(fetch_boost) # https://github.com/boostorg/program_options.git
 # set(CMAKE_FIND_DEBUG_MODE ON)
 # find_package(Boost 1.82 REQUIRED COMPONENTS program_options)
-find_package(Boost 1.82 REQUIRED COMPONENTS thread program_options log_setup log serialization system date_time)
+find_package(Boost REQUIRED COMPONENTS program_options log_setup log)
 # set(CMAKE_FIND_DEBUG_MODE OFF)
 
 # # https://github.com/boostorg/log/issues/46?ysclid=ll2b2ty8ys162328322
@@ -192,9 +192,9 @@ target_link_libraries(
         Boost::program_options
         Boost::log_setup
         Boost::log
-        Boost::serialization
-        Boost::system
-        Boost::date_time     
+        # Boost::serialization
+        # Boost::system
+        # Boost::date_time     
         pthread
         dl    
         info_static    
