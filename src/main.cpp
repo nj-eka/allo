@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cassert>
+#include <cstdint>
+#include <type_traits>
 #include <map>
 #include <utility>
 #include <numeric>
@@ -14,6 +16,22 @@
 #include "alloc/bpool_alloc.hpp"
 #include "cont/slist.hpp"
 
+using uint_t = std::uint_fast64_t;
+
+template <uint_t N>
+struct fact : std::integral_constant<uint_t, fact<N - 1>() * N>
+{
+};
+template <>
+struct fact<0> : std::integral_constant<uint_t, 1>
+{
+};
+
+template <typename T, typename Cmp, typename Alloc, T... ints>
+void fill_map(std::map<T, T, Cmp, Alloc> &m, std::integer_sequence<T, ints...>)
+{
+    ((m[ints] = fact<ints>()), ...);
+}
 
 int main(int argc, char const *argv[]) {
   try {
@@ -27,28 +45,17 @@ int main(int argc, char const *argv[]) {
     /////////////////////////// hw3 ///////////////////////////////
     {
       INFO("Start:...")
-      auto map1 = std::map<int, int, std::less<int>>();
-      map1[0] = 1;
-      for (int i = 1; i <= 9; ++i)
-        map1[i] = map1[i-1] * i;
-
-      for (auto const& [key, val] : map1){
-        // assert(map1[key] == val);
+      auto mp1 = std::map<uint_t, uint_t, std::less<uint_t>>();
+      fill_map(mp1, std::make_integer_sequence<uint_t, 10>{});
+      for (auto const& [key, val] : mp1)
         std::cout << key << " " << val << std::endl;
-      }
 
-      auto map2 = std::map<int, int, std::less<int>, alloc::bpool_alloc<std::pair<const int, int>, 10>>();
-      map2[0] = 1;
-      for (int i = 1; i <= 9; ++i){
-        map2[i] = map2[i-1] * i;
-        DEBUG("%d!=%d\n", i, map2[i]);
-      }
-
-      for (auto const& [key, val] : map2)
-        // assert(map1[key] == val);
+      auto mp2 = std::map<uint_t, uint_t, std::less<uint_t>, alloc::bpool_alloc<std::pair<const uint_t, uint_t>, 10>>();
+      fill_map(mp2, std::make_integer_sequence<uint_t, 10>{});
+      for (auto const& [key, val] : mp2)
         std::cout << key << " " << val << std::endl;
       INFO("part1 - done")
-      // assert(map1 == map2); // todo: comparing allocators is tricky task...
+      // assert(map1 == map2); // todo: comparing allocators is some tricky task...
     }
 
     {
