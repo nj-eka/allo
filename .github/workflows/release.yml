@@ -23,7 +23,7 @@ jobs:
       PACKAGE_CONTENT_TYPE: "application/vnd.debian.binary-package"
       BUILD_TESTING: ON
       ENABLE_COVERAGE: ON
-      CXX_FLAGS: "-g -O0 -fsanitize=undefined -fsanitize=address -fsanitize=leak -fno-omit-frame-pointer --coverage" # --profiling-output ./profiling_dc.json --profiling-format=google-trace
+      CXX_FLAGS: "-g -O0 -fsanitize=undefined -fsanitize=leak -fno-omit-frame-pointer --coverage" # --profiling-output ./profiling_dc.json --profiling-format=google-trace
 
     steps:
     # pre
