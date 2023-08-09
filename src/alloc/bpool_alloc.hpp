@@ -32,9 +32,12 @@ private:
   size_t _bpools_size = 0; // not to use distance(_bpools.begin(), _bpools.end())
   void _extend_bpool(); // todo: add support for n depended extention
 public:
-  bpool_alloc(placement_policy ipp = placement_policy::first) noexcept : _initial_placement_policy(ipp) {}
+  bpool_alloc(placement_policy ipp = placement_policy::first) noexcept : _initial_placement_policy(ipp) {
+    TRACE(__PRETTY_FUNCTION__);
+  }
   bpool_alloc(const bpool_alloc &) = delete; // ? deep copy
   bpool_alloc(bpool_alloc && other) noexcept {
+    TRACE(__PRETTY_FUNCTION__);
     std::swap(_bpools, other._bpools);
     std::swap(_initial_placement_policy, other._initial_placement_policy);
     std::swap(_bpools_size, other._bpools_size);
