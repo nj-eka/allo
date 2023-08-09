@@ -1,6 +1,6 @@
 #pragma once
 
-#ifndef LOGS_ON
+#ifndef LOGGING_ENABLE
 
 #define TRACE(msg, ...);
 #define DEBUG(msg, ...);

@@ -1,5 +1,14 @@
 #pragma once
 
+#include <boost/program_options.hpp>
+
+#ifndef LOGGING_ENABLE
+namespace Logger{
+
+inline void init([[maybe_unused]] const boost::program_options::variables_map &vm){}
+
+}
+#else
 #include <string>
 #include <sstream>
 #include <iomanip>
@@ -72,6 +81,5 @@ inline void init(const boost::program_options::variables_map &vm){
                      
 }
 
-}
-
-#define LOGS_ON
+} // namespace Logger
+#endif

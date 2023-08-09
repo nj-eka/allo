@@ -59,14 +59,14 @@ int main(int argc, char const *argv[]) {
     }
 
     {
-      cont::slist<int> sl1(10);
+      cont::slist<uint_t> sl1(10);
       std::iota(sl1.begin(), sl1.end(), 0);
-      std::copy(sl1.begin(), sl1.end(), std::ostream_iterator<int>(std::cout, " "));
+      std::copy(sl1.begin(), sl1.end(), std::ostream_iterator<uint_t>(std::cout, " "));
       std::cout << std::endl;
 
-      cont::slist<int, alloc::bpool_alloc<int, 10>> sl2(10);
+      cont::slist<uint_t, alloc::bpool_alloc<uint_t, 10>> sl2(10);
       std::iota(sl2.begin(), sl2.end(), 0);
-      std::copy(sl2.begin(), sl2.end(), std::ostream_iterator<int>(std::cout, " "));
+      std::copy(sl2.begin(), sl2.end(), std::ostream_iterator<uint_t>(std::cout, " "));
       std::cout << std::endl;
       
       assert(sl1 == sl2); // comparing custom list container is done

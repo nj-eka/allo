@@ -83,9 +83,8 @@ if (Boost_FOUND)
     message("Boost INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
     message("Boost Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
     message("Boost LIBRARIES: ${Boost_LIBRARIES}")
-
-    include_directories(${Boost_INCLUDE_DIRS}) # -> set(TARGETS ... INCLUDE_DIRECTORIES ...)
-    link_directories(${Boost_LIBRARY_DIRS})    
+    # include_directories(${Boost_INCLUDE_DIRS}) # -> set(TARGETS ... INCLUDE_DIRECTORIES ...)
+    # link_directories(${Boost_LIBRARY_DIRS})    
 endif()
 
 # (file)Boost.ProgramOptions + (compiler opton)libboost_program_options

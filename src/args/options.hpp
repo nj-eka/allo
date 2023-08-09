@@ -21,9 +21,10 @@ inline auto parse(int argc, char const *argv[]) {
     ("help,h",      "Print this help message")
     ("version,v",   "Print version")
     ("info",        "Print project info")
-    // ("logging-level,l",   opt::value<boost::log::trivial::severity_level>()->default_value(boost::log::trivial::info), "Logging level") // opt::value<boost::log::trivial::severity_level>...  ошибка: недостаточно контекстной информации для определения типа
+#ifdef LOGGING_ENABLE    
     ("logging-level,l",   opt::value<std::string>()->default_value(to_string(boost::log::trivial::info)), "Logging level") // opt::value<boost::log::trivial::severity_level>...  ошибка: недостаточно контекстной информации для определения типа
     ("logs",              opt::value<std::string>(), "Logging output file name [default:clog]")
+#endif
   ;
   // clang-format on
   // opt::positional_options_description pos_desc;
