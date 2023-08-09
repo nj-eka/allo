@@ -318,7 +318,7 @@ typename slist<T, A>::iterator slist<T, A>::erase(iterator b, iterator e) {
     ptail_ = b.prev_;          // Erasing at tail
   b.prev_->next_ = erase_past; // splice out sublist
   while (erase_next != erase_past) {
-    node *old_node = reinterpret_cast<node*>( erase_next );
+    node *old_node = erase_next;
     erase_next = erase_next->next_;
     --size_;
     // node_alloc_traits::destroy(node_alloc_, addressof(old_node->value_));
