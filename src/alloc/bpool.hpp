@@ -12,7 +12,7 @@
 
 namespace alloc{
 
-constexpr std::size_t OPTIMAL_BPOOL_ELEMENTS_COUNT = std::numeric_limits<unsigned long long>::digits; // = 64 on most platforms
+constexpr std::size_t OPTIMAL_BPOOL_SEGMENT_ELEMENTS_COUNT = std::numeric_limits<unsigned long long>::digits; // = 64 on most platforms
 
 enum class placement_policy {
     last, // - designed just to be quickest
@@ -43,7 +43,7 @@ struct bpool_base {
     virtual void reset() noexcept = 0;    
 };
 
-template<typename T, size_t N = OPTIMAL_BPOOL_ELEMENTS_COUNT> // N is part of type cuz std::bitset<N> or use boost::bitset with dynamic size ...
+template<typename T, size_t N = OPTIMAL_BPOOL_SEGMENT_ELEMENTS_COUNT> // N is part of type cuz std::bitset<N> or use boost::bitset with dynamic size ...
 struct bpool final: bpool_base<T> {
     using value_t = T;
     constexpr static auto value_size = sizeof(value_t);
@@ -53,6 +53,8 @@ private:
     value_storage_t _pool[N]; // T-aligned
     std::bitset<N> _free{};
     placement_policy _policy;
+    // _last_idx used as workaround for fast determination (that requires processor bound assembler code) of first significant flag in a bitset
+    size_t _last_idx = 0;
 public:
     // ~bpool() noexcept override = default;
     ~bpool() noexcept override { 
@@ -129,9 +131,15 @@ T* bpool<T, N>::allocate(size_t n) {
     if (n == 0 || n > free_count()) 
         return nullptr;
     // todo: add check of max available placement size (if it makes sense... not only for best placament policy)
-    if (auto [pos, mask] = _find_placement(n); pos != N){   
-        _free &= mask.flip();
-        return std::assume_aligned<value_alignment, T>(reinterpret_cast<T*>(&_pool[pos]));
+    if (auto [pos, mask] = _find_placement(n); pos != N){
+        if (n == 1)
+            _free.reset(pos);     
+        else 
+            _free &= mask.flip();
+        if (pos + n > _last_idx)
+            _last_idx = pos + n;
+        // return std::assume_aligned<value_alignment, T>(reinterpret_cast<T*>(&_pool[pos]));
+        return reinterpret_cast<T*>(&_pool[pos]);
     } else {
         // return static_cast<T *>(::operator new(value_size));
         return nullptr;
@@ -141,8 +149,13 @@ T* bpool<T, N>::allocate(size_t n) {
 template<typename T, size_t N>
 void bpool<T, N>::deallocate(T* p, size_t n) {
     TRACE(__PRETTY_FUNCTION__);
-    if (auto i = _get_index_from_address(p); i != N){
-        _free |= _details::get_mask<N>(i, i + n);
+    if (auto i = _get_index_from_address(p); i != N){ // todo: check i + n > N and throw exception
+        if (n == 1)
+            _free.set(i);
+        else 
+            _free |= _details::get_mask<N>(i, i + n);
+        if (i + n >= _last_idx)
+            _last_idx = i;
     } else {
         // ::operator delete(p);
     }
@@ -168,18 +181,25 @@ std::pair<size_t, std::bitset<N>> bpool<T, N>::_find_placement_last(size_t n) co
 {
     TRACE(__PRETTY_FUNCTION__);
     // #include <bit> std::countl_one - only if T is an unsigned integer type...
-    if (size_t i = _details::countl(_free, true, 0); i >= n){   
-        return std::make_pair(N - i, _details::get_mask<N>(N - i, N - i + n));
+    // if (size_t i = _details::countl(_free, true, 0); i >= n){   
+    //     return std::make_pair(N - i, _details::get_mask<N>(N - i, N - i + n));
+    if (_last_idx + n <= N){
+        return std::make_pair(_last_idx, _details::get_mask<N>(_last_idx, _last_idx + n));
     } else {
         return std::make_pair(N, std::bitset<N>());
     }
 }
 
 template <size_t N>
-std::bitset<N> _details::get_mask(size_t from, size_t to) { 
-  std::bitset<N> low{}, up{};
-  low.set(); up.set();
-  return (low <<= from) & (up <<= to).flip();
+std::bitset<N> _details::get_mask(size_t from, size_t to) {
+    if (to == from + 1){
+        std::bitset<N> mask;
+        mask.set(from);
+        return mask;    
+    }
+    std::bitset<N> low{}, up{};
+    low.set(); up.set();
+    return (low <<= from) & (up <<= to).flip();
 }
 
 template <size_t N>

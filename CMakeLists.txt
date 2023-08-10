@@ -104,7 +104,7 @@ endif()
 # include(fetch_gtest)
 
 # v2
-find_package(GTest 1.13 REQUIRED)
+# find_package(GTest 1.13 REQUIRED)
 
 ## FMT
 # include(fetch_fmt) - replaced by cxx23 standard
@@ -138,19 +138,13 @@ add_compile_options(-Wall -Wextra -Wpedantic -Wno-error=sized-deallocation -Wno-
 #     endif()
 # endif()
 
-###########################
-###### code_coverage ######
-###########################
-if(ENABLE_COVERAGE) # todo: maybe combined with BUILD_TESTING, DEBUG ...
-    include(CodeCoverage)
-endif()
-
-######################################
-###### Enable tests at top level #####
-######################################
 if(PROJECT_IS_TOP_LEVEL AND BUILD_TESTING)
+    find_package(GTest 1.13 REQUIRED)
     include(CTest)
     enable_testing()
+    if(ENABLE_COVERAGE) # todo: maybe combined with BUILD_TESTING, DEBUG ...
+        include(CodeCoverage)
+    endif()
 endif()
 
 ######################
@@ -217,7 +211,7 @@ target_link_libraries(
 print_target_properties(allo)
 
 if(BUILD_TESTING)
-    find_package(GTest REQUIRED)
+    # find_package(GTest REQUIRED)
     add_executable(
         alloc_cont_gtest
         "src/alloc/bpool_gtest.cpp"
@@ -242,6 +236,8 @@ if(BUILD_TESTING)
         alloc_cont_gtest
         PRIVATE
             ${GTEST_BOTH_LIBRARIES}
+            # ${GTEST_LIBRARIES}
+            # ${GTEST_MAIN_LIBRARIES}            
     )
     add_test(alloc_cont_gtest alloc_cont_gtest)
     if (MSVC)
@@ -262,6 +258,28 @@ if(BUILD_TESTING)
         append_coverage_compiler_flags_to_target(allo)
     endif()    
 endif(BUILD_TESTING)
+
+
+if(ENABLE_BENCHMARK)
+    find_package(benchmark REQUIRED)
+    add_executable(
+        alloc_gbenchmark
+        "src/alloc/bpool_alloc_gbenchmark.cpp"
+    )
+    set_target_properties(
+        alloc_gbenchmark
+        PROPERTIES
+            CXX_STANDARD ${CMAKE_CXX_STANDARD}
+            CXX_STANDARD_REQUIRED ${CMAKE_CXX_STANDARD_REQUIRED}
+    )
+    target_include_directories(
+        alloc_gbenchmark
+        PRIVATE
+            "${CMAKE_CURRENT_SOURCE_DIR}/src/alloc"
+            "${CMAKE_CURRENT_SOURCE_DIR}/src"
+    )
+    target_link_libraries(alloc_gbenchmark benchmark::benchmark)
+endif()
 
 install(TARGETS allo)
 

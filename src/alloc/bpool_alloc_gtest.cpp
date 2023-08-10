@@ -13,13 +13,13 @@ TEST(alloc_unit_tests, bpool_alloc_ctor){
     [[maybe_unused]] double* p1_1 = ba.allocate();
     [[maybe_unused]] double* p1_2 = ba.allocate();
     [[maybe_unused]] double* p1_3_2 = ba.allocate(2);
-    EXPECT_EQ(memuse(), std::make_pair(initial.first+72, initial.second+2)); // 4 * sizeof(double) + bitset byte + list_node ptr + ...
+    EXPECT_EQ(memuse(), std::make_pair(initial.first+80, initial.second+2)); // 4 * sizeof(double) + bitset<N> + list_node ptr + _last_idx ...
 
     initial = memuse();
     [[maybe_unused]] double* p2_1 = ba.allocate();
     [[maybe_unused]] double* p2_2_3 = ba.allocate(5);
     EXPECT_EQ(ba.repr(), "__******\n****\n");
-    EXPECT_EQ(memuse(), std::make_pair(initial.first+104, initial.second+2));    
+    EXPECT_EQ(memuse(), std::make_pair(initial.first+112, initial.second+2));    
     // memstat(std::cout);
     initial = memuse();
 

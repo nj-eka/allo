@@ -15,7 +15,7 @@
 
 namespace alloc{
 
-template <class T, size_t N>
+template <class T, size_t N = OPTIMAL_BPOOL_SEGMENT_ELEMENTS_COUNT>
 struct bpool_alloc {
   using value_type = T;
   using pointer = T*;
@@ -107,6 +107,10 @@ public:
     return i;
   }
 
+  size_t get_bpools_size() const noexcept {
+    return _bpools_size;
+  }
+
   std::string repr() const noexcept {
     std::stringstream ss;
     for(const auto& bp: _bpools){
@@ -128,6 +132,15 @@ void bpool_alloc<T, N>::_extend_bpool(){
       break;
     case 1:
       _bpools.push_front(std::make_unique<bpool<T, 2*N>>(_initial_placement_policy));
+      break;
+    case 2:
+      _bpools.push_front(std::make_unique<bpool<T, 4*N>>(_initial_placement_policy));
+      break;
+    case 3:
+      _bpools.push_front(std::make_unique<bpool<T, 8*N>>(_initial_placement_policy));
+      break;
+    case 4:
+      _bpools.push_front(std::make_unique<bpool<T, 16*N>>(_initial_placement_policy));
       break;
     // ...
     default:
