@@ -11,6 +11,7 @@ Course c++ developer: hw3 - Custom allocators
 
 # config example
 > cmake -B ./build -S . \
+    -DLOGGING_ENABLE=ON \
     -DCMAKE_BUILD_TYPE=Debug \
     -DBUILD_TESTING=ON \
     -DENABLE_COVERAGE=ON \
