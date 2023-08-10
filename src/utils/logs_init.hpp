@@ -2,7 +2,7 @@
 
 #include <boost/program_options.hpp>
 
-#ifndef LOGGING_ENABLE
+#ifndef ENABLE_LOGGING
 namespace Logger{
 
 inline void init([[maybe_unused]] const boost::program_options::variables_map &vm){}

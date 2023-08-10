@@ -21,7 +21,7 @@ inline auto parse(int argc, char const *argv[]) {
     ("help,h",      "Print this help message")
     ("version,v",   "Print version")
     ("info",        "Print project info")
-#ifdef LOGGING_ENABLE    
+#ifdef ENABLE_LOGGING   
     ("logging-level,l",   opt::value<std::string>()->default_value(to_string(boost::log::trivial::info)), "Logging level") // opt::value<boost::log::trivial::severity_level>...  ошибка: недостаточно контекстной информации для определения типа
     ("logs",              opt::value<std::string>(), "Logging output file name [default:clog]")
 #endif

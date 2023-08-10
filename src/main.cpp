@@ -40,11 +40,11 @@ int main(int argc, char const *argv[]) {
       return EAGAIN;
     }
     Logger::init(vm);
-    TRACE("init logs")
+    TRACE("init logs");
 
     /////////////////////////// hw3 ///////////////////////////////
     {
-      INFO("Start:...")
+      INFO("Start:...");
       auto mp1 = std::map<uint_t, uint_t, std::less<uint_t>>();
       fill_map(mp1, std::make_integer_sequence<uint_t, 10>{});
       for (auto const& [key, val] : mp1)
@@ -54,7 +54,7 @@ int main(int argc, char const *argv[]) {
       fill_map(mp2, std::make_integer_sequence<uint_t, 10>{});
       for (auto const& [key, val] : mp2)
         std::cout << key << " " << val << std::endl;
-      INFO("part1 - done")
+      INFO("part1 - done");
       // assert(map1 == map2); // todo: comparing allocators is some tricky task...
     }
 
@@ -70,9 +70,9 @@ int main(int argc, char const *argv[]) {
       std::cout << std::endl;
       
       assert(sl1 == sl2); // comparing custom list container is done
-      INFO("part2 - done")
+      INFO("part2 - done");
     }
-    INFO("The END")
+    INFO("The END");
   } catch (const args::opt::error &e) {
     ERROR("Invalid command args: %s (see --help)\n", e.what());
     return EINVAL;

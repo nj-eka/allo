@@ -1,12 +1,12 @@
 #pragma once
 
-#ifndef LOGGING_ENABLE
+#ifndef ENABLE_LOGGING
 
-#define TRACE(msg, ...);
-#define DEBUG(msg, ...);
-#define INFO(msg, ...);
-#define WARNING(msg, ...);
-#define ERROR(msg, ...);
+#define TRACE(msg, ...)
+#define DEBUG(msg, ...)
+#define INFO(msg, ...)
+#define WARNING(msg, ...)
+#define ERROR(msg, ...)
 
 #else
 
@@ -16,11 +16,11 @@
 // #include <boost/log/expressions.hpp>
 #include <boost/log/utility/manipulators/add_value.hpp>
 
-#define TRACE(msg, ...)         Logger::write_log(boost::log::trivial::trace,   __FILE__, __FUNCTION__, __LINE__, msg, ##__VA_ARGS__);
-#define DEBUG(msg, ...)         Logger::write_log(boost::log::trivial::debug,   __FILE__, __FUNCTION__, __LINE__, msg, ##__VA_ARGS__);
-#define INFO(msg, ...)          Logger::write_log(boost::log::trivial::info,    __FILE__, __FUNCTION__, __LINE__, msg, ##__VA_ARGS__);
-#define WARNING(msg, ...)       Logger::write_log(boost::log::trivial::warning, __FILE__, __FUNCTION__, __LINE__, msg, ##__VA_ARGS__);
-#define ERROR(msg, ...)         Logger::write_log(boost::log::trivial::error,   __FILE__, __FUNCTION__, __LINE__, msg, ##__VA_ARGS__);
+#define TRACE(msg, ...)         Logger::write_log(boost::log::trivial::trace,   __FILE__, __FUNCTION__, __LINE__, msg, ##__VA_ARGS__)
+#define DEBUG(msg, ...)         Logger::write_log(boost::log::trivial::debug,   __FILE__, __FUNCTION__, __LINE__, msg, ##__VA_ARGS__)
+#define INFO(msg, ...)          Logger::write_log(boost::log::trivial::info,    __FILE__, __FUNCTION__, __LINE__, msg, ##__VA_ARGS__)
+#define WARNING(msg, ...)       Logger::write_log(boost::log::trivial::warning, __FILE__, __FUNCTION__, __LINE__, msg, ##__VA_ARGS__)
+#define ERROR(msg, ...)         Logger::write_log(boost::log::trivial::error,   __FILE__, __FUNCTION__, __LINE__, msg, ##__VA_ARGS__)
 
 #define LOG_TRIVIAL(lvl)\
     BOOST_LOG_STREAM_WITH_PARAMS(::boost::log::trivial::logger::get(),\

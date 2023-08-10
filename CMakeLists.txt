@@ -174,6 +174,13 @@ target_compile_features(
         cxx_std_23 # to be sure
 )
 
+if(ENABLE_LOGGING)
+    target_compile_definitions(allo
+        PRIVATE
+            ENABLE_LOGGING 
+    )
+endif()
+
 target_include_directories(
     allo
     PRIVATE
