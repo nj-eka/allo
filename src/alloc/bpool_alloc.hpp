@@ -124,6 +124,8 @@ public:
 template <class T, size_t N>
 void bpool_alloc<T, N>::_extend_bpool(){
   TRACE(__PRETTY_FUNCTION__);
+  // todo: switch to use next multiple of OPTIMAL_BPOOL_SEGMENT_ELEMENTS_COUNT from N if benchmarks are positive. 
+  // constexpr size_t M = ((N + OPTIMAL_BPOOL_SEGMENT_ELEMENTS_COUNT - 1) / OPTIMAL_BPOOL_SEGMENT_ELEMENTS_COUNT) * OPTIMAL_BPOOL_SEGMENT_ELEMENTS_COUNT;
   switch (_bpools_size){
     // static extentions
     case 0:
