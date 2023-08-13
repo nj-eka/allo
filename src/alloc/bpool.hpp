@@ -15,14 +15,13 @@ namespace alloc{
 constexpr std::size_t OPTIMAL_BPOOL_SEGMENT_ELEMENTS_COUNT = std::numeric_limits<unsigned long long>::digits; // = 64 on most platforms
 
 enum class placement_policy {
-    last, // - designed just to be quickest
-    first // - neither this nor that
-    // best // - least fragmentation but slowest; todo: implement
+    last,
+    first
+    // best
 };
 
-template <typename T> // size N independent class 
+template <typename T> // size N independent base class 
 struct bpool_base {
-    // virtual ~bpool_base() = default;
     virtual ~bpool_base(){
         TRACE(__PRETTY_FUNCTION__);   
     }
@@ -79,8 +78,8 @@ public:
 
     void set(placement_policy pp) noexcept override { _policy = pp; }
 
-    size_t total_count() noexcept override { return N; } // if it's not overrided than static constexpr ...
-    size_t free_count() noexcept override { return _free.count(); } // can be constexpr cuz template<std::size_t _Nb> constexpr std::size_t std::bitset<_Nb>::count() const noexcept
+    size_t total_count() noexcept override { return N; }
+    size_t free_count() noexcept override { return _free.count(); }
     bool is_free(size_t n) noexcept override {
         TRACE(__PRETTY_FUNCTION__);
         [[maybe_unused]] auto [pos, mask] = _find_placement(n);
