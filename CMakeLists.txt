@@ -4,6 +4,9 @@
 cmake_minimum_required(VERSION 3.26)
 message("CMAKE_VERSION = ${CMAKE_VERSION}")
 
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # set(RELEASE_VERSION)
 # set(PACKAGE DEB)
 
@@ -33,8 +36,6 @@ project(allo
     DESCRIPTION "course c++ developer - hw3"
     LANGUAGES CXX
 )
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # message("CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 # message("CMAKE_C_COMPILER: ${CMAKE_C_COMPILER}")

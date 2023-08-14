@@ -16,21 +16,21 @@
 #include "alloc/bpool_alloc.hpp"
 #include "cont/slist.hpp"
 
+namespace {
+
 using uint_t = std::uint_fast64_t;
 
 template <uint_t N>
-struct fact : std::integral_constant<uint_t, fact<N - 1>() * N>
-{
-};
+struct fact : std::integral_constant<uint_t, N * fact<N - 1>()>{};
 template <>
-struct fact<0> : std::integral_constant<uint_t, 1>
-{
-};
+struct fact<0> : std::integral_constant<uint_t, 1>{};
 
 template <typename T, typename Cmp, typename Alloc, T... ints>
 void fill_map(std::map<T, T, Cmp, Alloc> &m, std::integer_sequence<T, ints...>)
 {
-    ((m[ints] = fact<ints>()), ...);
+    ((m[ints] = fact<ints>()), ...); // fact<ints>() == fact<ints>{} == fact<ints>::value
+}
+
 }
 
 int main(int argc, char const *argv[]) {
