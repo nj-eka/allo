@@ -23,7 +23,7 @@ enum class placement_policy {
 template <typename T> // size N independent base class 
 struct bpool_base {
     virtual ~bpool_base(){
-        TRACE(__PRETTY_FUNCTION__);   
+        // TRACE(__PRETTY_FUNCTION__);   
     }
 
     virtual T* allocate(size_t n) = 0;
@@ -57,10 +57,10 @@ private:
 public:
     // ~bpool() noexcept override = default;
     ~bpool() noexcept override { 
-        TRACE(__PRETTY_FUNCTION__);
+        // TRACE(__PRETTY_FUNCTION__);
     }
     bpool(placement_policy pp = placement_policy::last): _policy(pp) {
-        TRACE(__PRETTY_FUNCTION__);
+        // TRACE(__PRETTY_FUNCTION__);
         _free.set(); 
     }
     bpool(const bpool&) = delete;
@@ -70,7 +70,7 @@ public:
     void deallocate(T* ptr, size_t n) override;
 
     bool contains(T *p, size_t n) noexcept override {
-        TRACE(__PRETTY_FUNCTION__);
+        // TRACE(__PRETTY_FUNCTION__);
         T* from = reinterpret_cast<T*>(const_cast<value_storage_t*>(&_pool[0]));
         // std::cout << " contains " << p << " - " << (p + n) << " from " << from  << " to " << from + N << " = " << (bool)((from <= p) && ((p + n) <= (from + N))) << std::endl; 
         return (from <= p) && ((p + n) <= (from + N));
@@ -81,7 +81,7 @@ public:
     size_t total_count() noexcept override { return N; }
     size_t free_count() noexcept override { return _free.count(); }
     bool is_free(size_t n) noexcept override {
-        TRACE(__PRETTY_FUNCTION__);
+        // TRACE(__PRETTY_FUNCTION__);
         [[maybe_unused]] auto [pos, mask] = _find_placement(n);
         return (pos != N);
     }
@@ -91,7 +91,7 @@ public:
     void reset() noexcept  override { _free.reset(); }    
 private:
     size_t _get_index_from_address(T *p) noexcept {
-        TRACE(__PRETTY_FUNCTION__);
+        // TRACE(__PRETTY_FUNCTION__);
         return contains(p, 1) ? p - reinterpret_cast<T*>(&_pool) : N;
     }
     std::pair<size_t, std::bitset<N>> _find_placement(size_t n) const noexcept{
@@ -126,7 +126,7 @@ size_t countr(std::bitset<N> bs, bool value = true, size_t r_from = 0, size_t ma
 
 template<typename T, size_t N>
 T* bpool<T, N>::allocate(size_t n) {
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
     if (n == 0 || n > free_count()) 
         return nullptr;
     // todo: add check of max available placement size (if it makes sense... not only for best placament policy)
@@ -147,7 +147,7 @@ T* bpool<T, N>::allocate(size_t n) {
 
 template<typename T, size_t N>
 void bpool<T, N>::deallocate(T* p, size_t n) {
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
     if (auto i = _get_index_from_address(p); i != N){ // todo: check i + n > N and throw exception
         if (n == 1)
             _free.set(i);
@@ -163,7 +163,7 @@ void bpool<T, N>::deallocate(T* p, size_t n) {
 template<typename T, size_t N>
 std::pair<size_t, std::bitset<N>> bpool<T, N>::_find_placement_first(size_t n) const noexcept
 {
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
     for (auto pos = _free._Find_first(); pos <= N - n;){
         if (_details::countr(_free, true, pos, n) >= n)
             return std::make_pair(pos, _details::get_mask<N>(pos, pos + n));
@@ -178,7 +178,7 @@ std::pair<size_t, std::bitset<N>> bpool<T, N>::_find_placement_first(size_t n) c
 template<typename T, size_t N>
 std::pair<size_t, std::bitset<N>> bpool<T, N>::_find_placement_last(size_t n) const noexcept
 {
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
     // #include <bit> std::countl_one - only if T is an unsigned integer type...
     // if (size_t i = _details::countl(_free, true, 0); i >= n){   
     //     return std::make_pair(N - i, _details::get_mask<N>(N - i, N - i + n));

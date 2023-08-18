@@ -34,14 +34,14 @@ struct node_base {
   node<Tp> *next_;
 
   node_base() : next_(nullptr) { 
-    TRACE(__PRETTY_FUNCTION__); 
+    // TRACE(__PRETTY_FUNCTION__); 
   }
   node_base(node_base &&rhs) : next_(rhs.next_) { 
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
     rhs.next_ = nullptr; 
   }
   node_base &operator=(node_base &&rhs) {
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
     if (&rhs == this)
       return *this;
     next_ = rhs.next_;
@@ -66,11 +66,11 @@ template <typename Tp> struct const_iterator {
   using iterator_category = forward_iterator_tag;
 
   reference operator*() const {
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
     return prev_->next_->value_; 
   }
   pointer operator->() const {
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
     return addressof(prev_->next_->value_); 
   }
 
@@ -91,7 +91,7 @@ template <typename Tp> struct const_iterator {
 
   explicit const_iterator(const node_base<Tp> *prev)
       : prev_(const_cast<node_base<Tp> *>(prev)) {
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
   }
 };
 
@@ -115,7 +115,7 @@ template <typename Tp> struct iterator : public const_iterator<Tp> {
   }
 
   explicit iterator(node_base<Tp> *prev) : const_iterator<Tp>(prev) {
-    TRACE(__PRETTY_FUNCTION__);    
+    // TRACE(__PRETTY_FUNCTION__);    
   }
 };
 
@@ -145,10 +145,10 @@ private:
 
 public:
   slist(node_allocator_type&& a = {}) : head_(), ptail_(&head_), size_(0), node_alloc_(std::forward<node_allocator_type>(a)) {
-    TRACE("call [%s] with a as [%s]", __PRETTY_FUNCTION__, boost::typeindex::type_id_runtime(a));
+    // TRACE("call [%s] with a as [%s]", __PRETTY_FUNCTION__, boost::typeindex::type_id_runtime(a));
   }
   slist(allocator_type&& a) : slist(node_alloc_type(std::forward<allocator_type>(a))) {
-    TRACE("call [%s] with a as [%s]", __PRETTY_FUNCTION__, boost::typeindex::type_id_runtime(a));  
+    // TRACE("call [%s] with a as [%s]", __PRETTY_FUNCTION__, boost::typeindex::type_id_runtime(a));  
   }
 // todo: try to apply ALL standard requirements...  
 // https://en.cppreference.com/w/cpp/named_req/AllocatorAwareContainer
@@ -157,30 +157,30 @@ public:
 // on the allocator of the container being copied.
 // https://en.cppreference.com/w/cpp/memory/allocator_traits/select_on_container_copy_construction
   slist(const slist &other): slist(other.get_allocator()) {
-    TRACE("call [%s] with other as [%s]", __PRETTY_FUNCTION__, boost::typeindex::type_id_runtime(other));    
+    // TRACE("call [%s] with other as [%s]", __PRETTY_FUNCTION__, boost::typeindex::type_id_runtime(other));    
     operator=(other);
   }
   slist(const slist &other, allocator_type a): slist(a) {
-    TRACE("call [%s] with other as [%s]", __PRETTY_FUNCTION__, boost::typeindex::type_id_runtime(other));      
+    // TRACE("call [%s] with other as [%s]", __PRETTY_FUNCTION__, boost::typeindex::type_id_runtime(other));      
     operator=(other);
   }
 // Move constructors obtain their instances of allocators by move-constructing from the allocator belonging to the old container.
   slist(slist &&other) noexcept : slist(other.get_allocator()) {
-    TRACE("call [%s] with other as [%s]", __PRETTY_FUNCTION__, boost::typeindex::type_id_runtime(other));   
+    // TRACE("call [%s] with other as [%s]", __PRETTY_FUNCTION__, boost::typeindex::type_id_runtime(other));   
     head_ = move(other.head_);
     ptail_ = move(other.ptail_);
   }
   slist(slist &&other, allocator_type a): slist(a) {
-    TRACE("call [%s] with other as [%s]", __PRETTY_FUNCTION__, boost::typeindex::type_id_runtime(other));    
+    // TRACE("call [%s] with other as [%s]", __PRETTY_FUNCTION__, boost::typeindex::type_id_runtime(other));    
     operator=(move(other));
   }
   slist(size_t size): slist(){
-    TRACE(__PRETTY_FUNCTION__);       
+    // TRACE(__PRETTY_FUNCTION__);       
     while(size--)
       push_front(T{});
   }
   ~slist() {
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
     erase(begin(), end()); 
   }
 
@@ -225,18 +225,18 @@ public:
 
   // The accessor get_allocator() obtains a copy of the allocator that was used to construct the container or installed by the most recent allocator replacement operation.
   allocator_type get_allocator() && {
-    WARNING(__PRETTY_FUNCTION__);      
+    // WARNING(__PRETTY_FUNCTION__);      
     return allocator_type{}; 
   }
   node_allocator_type& get_node_allocator() & { 
-    WARNING(__PRETTY_FUNCTION__);
+    // WARNING(__PRETTY_FUNCTION__);
     return node_alloc_; 
   }
 
 };
 template <typename T, typename A, typename TT, typename AA>
 bool operator==(const slist<T, A> &a, const slist<TT, AA> &b) {
-  TRACE("call [%s] with a as [%s] and b as [%s]", __PRETTY_FUNCTION__, boost::typeindex::type_id_runtime(a), boost::typeindex::type_id_runtime(b));  
+  // TRACE("call [%s] with a as [%s] and b as [%s]", __PRETTY_FUNCTION__, boost::typeindex::type_id_runtime(a), boost::typeindex::type_id_runtime(b));  
   return (a.size() == b.size()) && equal(a.begin(), a.end(), b.begin());
 }
 
@@ -281,7 +281,7 @@ void slist<T, A>::swap(slist &other) noexcept {
 template <typename T, typename A>
 template <typename... Args>
 typename slist<T, A>::iterator slist<T, A>::emplace(iterator it, Args &&... args) {
-  TRACE(__PRETTY_FUNCTION__);    
+  // TRACE(__PRETTY_FUNCTION__);    
   // node *new_node = node_alloc_.allocate(); // static_cast<node *>(...)
   node *new_node = node_alloc_traits::allocate(node_alloc_, 1);
   try {
@@ -311,7 +311,7 @@ typename slist<T, A>::iterator slist<T, A>::emplace(iterator it, Args &&... args
 
 template <typename T, typename A>
 typename slist<T, A>::iterator slist<T, A>::erase(iterator b, iterator e) {
-  TRACE(__PRETTY_FUNCTION__);  
+  // TRACE(__PRETTY_FUNCTION__);  
   node *erase_next = b.prev_->next_;
   node *erase_past = e.prev_->next_; // one past last erasure
   if (nullptr == erase_past)

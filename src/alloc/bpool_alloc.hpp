@@ -33,11 +33,11 @@ private:
   void _extend_bpool(); // todo: add support for n depended extention
 public:
   bpool_alloc(placement_policy ipp = placement_policy::first) noexcept : _initial_placement_policy(ipp) {
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
   }
   bpool_alloc(const bpool_alloc &) = delete; // ? deep copy
   bpool_alloc(bpool_alloc && other) noexcept {
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
     std::swap(_bpools, other._bpools);
     std::swap(_initial_placement_policy, other._initial_placement_policy);
     std::swap(_bpools_size, other._bpools_size);
@@ -46,7 +46,7 @@ public:
 
   template <class U>
   bpool_alloc(bpool_alloc<U, N> const&) noexcept {
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
   }
 
   template <class Up> struct rebind { 
@@ -55,7 +55,7 @@ public:
 
   T *allocate(size_t n = 1) 
   {
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
     if (n >  N * (1 << (_bpools_size + 1)) ) throw std::bad_alloc();
     for(auto& bp: _bpools)
         if (auto ptr = bp->allocate(n); ptr != nullptr)
@@ -67,7 +67,7 @@ public:
   }
 
   void deallocate(T *ptr, std::size_t n = 1) {
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
     for(auto& bp : _bpools)
         if (bp->contains(ptr, n)){
           bp->deallocate(ptr, n);
@@ -79,13 +79,13 @@ public:
   template<typename U, typename ...Args>
   void construct(U *p, Args &&...args) 
   {
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
     new(p) U(std::forward<Args>(args)...);
   }
 
   void destroy(T *p) 
   {
-    TRACE(__PRETTY_FUNCTION__);
+    // TRACE(__PRETTY_FUNCTION__);
     p->~T();
   }
 
@@ -123,7 +123,7 @@ public:
 
 template <class T, size_t N>
 void bpool_alloc<T, N>::_extend_bpool(){
-  TRACE(__PRETTY_FUNCTION__);
+  // TRACE(__PRETTY_FUNCTION__);
   // todo: switch to use next multiple of OPTIMAL_BPOOL_SEGMENT_ELEMENTS_COUNT from N if benchmarks are positive. 
   // constexpr size_t M = ((N + OPTIMAL_BPOOL_SEGMENT_ELEMENTS_COUNT - 1) / OPTIMAL_BPOOL_SEGMENT_ELEMENTS_COUNT) * OPTIMAL_BPOOL_SEGMENT_ELEMENTS_COUNT;
   switch (_bpools_size){

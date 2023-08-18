@@ -68,7 +68,7 @@ Usage:
     -DENABLE_LOGGING=OFF \
     -DBUILD_TESTING=OFF \
     -DENABLE_COVERAGE=OFF \
-    -DCMAKE_CXX_FLAGS="-g -O2"
+    -DCMAKE_CXX_FLAGS="-O3"
 > cmake --build build
 > build/alloc_gbenchmark
 Running build/alloc_gbenchmark
@@ -78,17 +78,17 @@ CPU Caches:
   L1 Instruction 32 KiB (x6)
   L2 Unified 256 KiB (x6)
   L3 Unified 6144 KiB (x3)
-Load Average: 1.16, 1.23, 1.36
+Load Average: 1.32, 2.31, 2.58
 -----------------------------------------------------------------------------------------------
 Benchmark                                                     Time             CPU   Iterations
 -----------------------------------------------------------------------------------------------
-BM_vector_std_alloc_optimum_linear_monotonic               1231 ns         1231 ns       503159
-BM_vector_bpool_alloc_optimum_first_linear_monotonic       1119 ns         1119 ns       612835
-BM_vector_bpool_alloc_optimum_last_linear_monotonic         996 ns          995 ns       665587
-BM_vector_std_alloc_optimum_mix                            1908 ns         1904 ns       352235
-BM_vector_bpool_alloc_optimum_first_mix                     763 ns          762 ns       825022
-BM_vector_bpool_alloc_optimum_last_mix                      710 ns          710 ns       831771
-BM_vector_std_alloc_freestyle_mix                         94234 ns        93954 ns        16736
-BM_vector_bpool_alloc_freestyle_first_mix                 30013 ns        30011 ns        23364
-BM_vector_bpool_alloc_freestyle_last_mix                  27251 ns        27249 ns        25454
+BM_vector_std_alloc_optimum_linear_monotonic               1225 ns         1224 ns       513928
+BM_vector_bpool_alloc_optimum_first_linear_monotonic       1090 ns         1089 ns       628629
+BM_vector_bpool_alloc_optimum_last_linear_monotonic         988 ns          988 ns       692157
+BM_vector_std_alloc_optimum_mix                            1943 ns         1942 ns       367342
+BM_vector_bpool_alloc_optimum_first_mix                     740 ns          740 ns       839535
+BM_vector_bpool_alloc_optimum_last_mix                      689 ns          689 ns       925079
+BM_vector_std_alloc_freestyle_mix                         41382 ns        41361 ns        22214
+BM_vector_bpool_alloc_freestyle_first_mix                 29319 ns        29321 ns        23309
+BM_vector_bpool_alloc_freestyle_last_mix                  27905 ns        27877 ns        24712
 ```
