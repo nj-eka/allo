@@ -1,0 +1,28 @@
+var structalloc_1_1bpool =
+[
+    [ "value_storage_t", "structalloc_1_1bpool.html#abf563ebf2e70d9dc3e3c402b21117bb7", null ],
+    [ "value_t", "structalloc_1_1bpool.html#a2b38b4d1997d82276da33b3b4b344a39", null ],
+    [ "~bpool", "structalloc_1_1bpool.html#a812ea8c438aa5a9ef0c4ecae16d3b22e", null ],
+    [ "bpool", "structalloc_1_1bpool.html#ab322b81ecba54bc378fde324d3baf98d", null ],
+    [ "bpool", "structalloc_1_1bpool.html#a09d5d812e7e72cb35a856ce2ae979dc1", null ],
+    [ "_find_placement", "structalloc_1_1bpool.html#ab3fc37a347279e57f6a64a8497f0c2e6", null ],
+    [ "_find_placement_first", "structalloc_1_1bpool.html#a940a7ead9b498ebc89bfde95fd4507bd", null ],
+    [ "_find_placement_last", "structalloc_1_1bpool.html#adee966c8fcb09877071ea32e10d414b0", null ],
+    [ "_get_index_from_address", "structalloc_1_1bpool.html#ab4cf12894a2065c8de5fa531bf20a8b7", null ],
+    [ "allocate", "structalloc_1_1bpool.html#a21161441539b62582473a250fffc5e00", null ],
+    [ "contains", "structalloc_1_1bpool.html#a600adaf02ac886741acbf440d43595c6", null ],
+    [ "deallocate", "structalloc_1_1bpool.html#a26c33896820dc8db591d97f67f62c0a1", null ],
+    [ "free_count", "structalloc_1_1bpool.html#ad50bc4235a73d694e12048d6add1e637", null ],
+    [ "is_free", "structalloc_1_1bpool.html#a8671c64412fee0af7b3397c483857974", null ],
+    [ "operator=", "structalloc_1_1bpool.html#a7bfcbb7e3d3d6de0db43bfadf7d5e6c4", null ],
+    [ "repr", "structalloc_1_1bpool.html#aaa359830c277e94ff4539d855937dbc9", null ],
+    [ "reset", "structalloc_1_1bpool.html#a1090c6b34d689aa0833aab757d22602a", null ],
+    [ "set", "structalloc_1_1bpool.html#a18c7a45a44e1b35a599db33dcc4d0d3e", null ],
+    [ "total_count", "structalloc_1_1bpool.html#a9db2c48f7c6454677963c8a82195f0b1", null ],
+    [ "_free", "structalloc_1_1bpool.html#a5bc70cbf5dfa80167f1f57061c75ea34", null ],
+    [ "_last_idx", "structalloc_1_1bpool.html#ad74b6cb25a006b5683fad9d2f342cec0", null ],
+    [ "_policy", "structalloc_1_1bpool.html#a684852257967094b4db6758745c85799", null ],
+    [ "_pool", "structalloc_1_1bpool.html#ae4370fd594ef61659a54f752bd2f09d1", null ],
+    [ "value_alignment", "structalloc_1_1bpool.html#a21a8484f9dedaccb3d058683794bfb5d", null ],
+    [ "value_size", "structalloc_1_1bpool.html#a10573c4a2a19a785486f4e269febd4bf", null ]
+];

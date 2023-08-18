@@ -1,0 +1,11 @@
+<map id="info::info_project_author" name="info::info_project_author">
+<area shape="rect" id="Node000001" title=" " alt="" coords="479,23,597,74"/>
+<area shape="rect" id="Node000002" href="$namespaceinfo.html#a88d21aeb33571d3a6911aac2fedc31ee" title=" " alt="" coords="290,33,431,64"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="465,51,432,51,432,46,465,46"/>
+<area shape="rect" id="Node000003" href="$namespaceargs.html#ac5abfe1ee497dcb11ea7435db4aed06d" title=" " alt="" coords="103,5,242,36"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="275,39,242,34,243,28,276,33"/>
+<area shape="rect" id="Node000005" href="$version_8gtest_8cpp.html#a5d030007d0415495a5fe6465d08c90ca" title=" " alt="" coords="145,60,200,91"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="276,63,200,74,200,69,275,58"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html#abf9e6b7e6f15df4b525a2e7705ba3089" title=" " alt="" coords="5,5,55,36"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="88,23,55,23,55,18,88,18"/>
+</map>

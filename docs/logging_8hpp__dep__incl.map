@@ -1,0 +1,23 @@
+<map id="src/utils/logging.hpp" name="src/utils/logging.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="434,5,572,36"/>
+<area shape="rect" id="Node000002" href="$bpool_8hpp.html" title=" " alt="" coords="354,84,484,115"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="478,48,437,85,433,81,474,44"/>
+<area shape="rect" id="Node000003" href="$bpool__alloc_8hpp.html" title=" " alt="" coords="148,163,312,193"/>
+<area shape="poly" id="edge8_Node000001_Node000003" title=" " alt="" coords="440,44,391,62,343,86,288,126,246,164,242,160,284,122,340,82,389,57,438,39"/>
+<area shape="rect" id="Node000007" href="$main_8cpp.html" title=" " alt="" coords="539,251,635,282"/>
+<area shape="poly" id="edge12_Node000001_Node000007" title=" " alt="" coords="544,42,575,63,609,90,639,123,663,162,666,175,665,189,653,214,633,236,612,253,608,249,630,232,649,211,660,188,661,176,658,164,635,126,605,94,572,67,541,46"/>
+<area shape="rect" id="Node000009" href="$slist_8hpp.html" title=" " alt="" coords="526,163,648,193"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="520,48,582,161,577,164,515,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="370,123,267,165,265,160,368,118"/>
+<area shape="rect" id="Node000008" href="$bpool__gtest_8cpp.html" title=" " alt="" coords="336,163,502,193"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="422,130,422,162,416,162,416,130"/>
+<area shape="rect" id="Node000004" href="$bpool__alloc__gbenchmark_8cpp.html" title=" " alt="" coords="5,241,145,292"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="192,203,120,243,118,239,189,199"/>
+<area shape="rect" id="Node000005" href="$bpool__alloc__gtest_8cpp.html" title=" " alt="" coords="169,241,309,292"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="235,208,239,241,234,241,230,208"/>
+<area shape="rect" id="Node000006" href="$slist__gtest_8cpp.html" title=" " alt="" coords="350,251,507,282"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="278,197,396,248,393,253,275,202"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="326,194,420,214,520,239,549,248,548,253,518,244,419,219,325,199"/>
+<area shape="poly" id="edge10_Node000009_Node000006" title=" " alt="" coords="549,203,457,253,454,248,546,199"/>
+<area shape="poly" id="edge11_Node000009_Node000007" title=" " alt="" coords="590,208,590,251,584,251,584,208"/>
+</map>

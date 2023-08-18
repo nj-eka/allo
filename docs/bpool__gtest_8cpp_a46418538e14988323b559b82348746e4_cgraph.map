@@ -1,0 +1,11 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,70,60,101"/>
+<area shape="rect" id="Node000002" href="$structalloc_1_1bpool.html#a21161441539b62582473a250fffc5e00" title=" " alt="" coords="115,15,255,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,73,107,55,123,49,125,54,109,60,61,78"/>
+<area shape="rect" id="Node000004" href="$structalloc_1_1bpool.html#a26c33896820dc8db591d97f67f62c0a1" title=" " alt="" coords="108,70,262,101"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="60,83,93,83,93,88,60,88"/>
+<area shape="rect" id="Node000005" href="$structalloc_1_1bpool.html#aaa359830c277e94ff4539d855937dbc9" title=" " alt="" coords="126,125,244,155"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="61,92,127,117,125,122,59,97"/>
+<area shape="rect" id="Node000003" href="$structalloc_1_1bpool__base.html#ab65307339d29e7c9691f12a10b8dc019" title=" " alt="" coords="310,5,440,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="256,28,295,28,295,33,256,33"/>
+</map>

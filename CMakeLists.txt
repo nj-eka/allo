@@ -282,6 +282,12 @@ if(ENABLE_BENCHMARK)
     target_link_libraries(alloc_gbenchmark benchmark::benchmark)
 endif()
 
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in 
+    ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile
+    @ONLY
+)
+
 install(TARGETS allo)
 
 if (RELEASE_VERSION)
